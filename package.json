@@ -1,0 +1,26 @@
+{
+  "name": "anatomy",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "audit": "node qa/model-check.mjs && node qa/new-model-check.mjs",
+    "serve": "node serve.mjs"
+  },
+  "dependencies": {
+    "esbuild": "0.28.2",
+    "three": "0.186.1"
+  },
+  "version": "1.1.0",
+  "description": "Interactive cutaway gallery of twelve everyday mechanisms",
+  "license": "MIT",
+  "author": "Amir Mushich",
+  "homepage": "https://anatomy.amirmushich.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amirmushichge/anatomy.git"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

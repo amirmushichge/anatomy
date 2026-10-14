@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.vercel/
+index.html
+presets/*.json
+!presets/pen.json
+qa/*.json
+qa/*.log
+qa/*.png
+*.zip
+*.mp4
+.DS_Store
