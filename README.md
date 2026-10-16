@@ -1,41 +1,30 @@
 # Anatomy
 
-An interactive collection of everyday mechanisms by [Amir Mushich](https://amirmushich.com).
+Explore twelve everyday mechanisms as interactive 3D drawings by [Amir Mushich](https://amirmushich.com).
 
-Operate a cutaway object, pause its motion, select a part and look closer.
-Twelve objects share the same viewer, controls and inspection system.
+[Live gallery](https://anatomy.amirmushich.com/) · [Standalone download](https://github.com/amirmushichge/anatomy/releases/latest/download/anatomy.html)
 
-[Live gallery](https://anatomy.amirmushich.com) · [Download standalone HTML](https://github.com/amirmushichge/anatomy/releases/latest/download/anatomy.html)
+![Anatomy v2](social/cover.png)
 
-![Cutaway mechanical watch](assets/watch.png)
+White solids, thin outlines and five labelled functional colours make moving relationships visible. Each object has five short causal chapters, staged dissection and controls driven by its mechanism model.
 
 ## Objects
 
-Click pen, mechanical keyboard, photo lens, mechanical watch, gamepad, cylinder
-lock, geared bicycle hub, four-stroke engine, DC motor, loudspeaker, bicycle
-pump and hard disk drive. There are 789 named solids/features. Integral ribs,
-marks and illustrative tracks are inspection entities, not separate entries
-in a manufacturing bill of materials.
+Click pen, mechanical keyboard, photo lens, mechanical watch, gamepad, cylinder lock, geared bicycle hub, four-stroke engine, DC motor, loudspeaker, bicycle pump and hard disk drive.
+
+The lens exposes a threaded focusing carriage and a nine-leaf iris with a slotted drive ring. The watch links winding and individual beats to its gear train. Other experiments include a key's shear line, three hub ratios, motor polarity, check valves and HDD head parking.
 
 ## Use
 
-Drag to orbit, wheel or pinch to zoom. Hover reveals a name; click/tap pins a
-part in the inspector. Focus frames it and Return to object restores the prior
-camera and separation. Inspect lists part groups, including hidden internals.
+Drag to orbit; wheel or pinch to zoom. Click or tap a part to pin its explanation. Focus frames the part; Return restores the previous camera, separation and chapter.
 
-The primary button runs, pauses or resumes a cycle. Controls provides
-mechanism parameters, playback speed and separation from 0 to 100%. S toggles
-slow time, E separates/rejoins, Home fits and Escape closes inspection. On the
-focused canvas, Space/Enter operates and arrow keys orbit. Physical keys also
-operate the keyboard; S/E remain tool shortcuts.
+Learn opens the five chapters. Motion contains playback, held phases and the object's settings. Small screens split Playback and Settings to keep the scene on one screen. E separates every part; S slows time; B steps a phase or watch beat; W winds the watch. On the focused canvas, Space/Enter actuates and arrow keys orbit. Actual keyboard keys operate the keyboard; S/E remain tool shortcuts.
 
-Each object retains its state and camera when switching. Rendering stops at
-rest. The UI fits a single screen, supports reduced motion, and provides
-static previews when WebGL 2 is unavailable.
+Reduced motion uses explicit held states. Without WebGL 2, static object previews remain available. Each HTML file embeds its runtime, models, font and previews and works offline.
 
-## Run and build
+## Build
 
-Node.js 22 or newer:
+Use Node 22 or later:
 
 ```sh
 npm ci
@@ -43,48 +32,30 @@ npm run build
 npm run audit
 ```
 
-Open index.html directly for the offline gallery. dist/ is the static web
-deployment, with an external social-preview image. The offline HTML contains
-its runtime, models, font, previews and third-party notices.
+The build writes `dist/index.html`, twelve direct object HTML files, metadata, share cover and licence notices. It also writes standalone HTML files at the repository root. For browser checks:
 
 ```sh
-npm run serve
+npx playwright install chromium
+npm run audit:browser
+node review/check-build.mjs
 ```
 
-The local server binds to 127.0.0.1:4173. No account or API key is needed.
+To use an installed Chrome, set `CHROME_PATH` to its executable. Browser checks use Playwright; production needs no network or server API.
 
-## Add an object
+## Edit
 
-1. Define named solids, descriptions and motion groups in a scene module.
-2. Implement a pure pose/readout function in presets/mechanisms.mjs. Add the ID
-   to NEW_IDS, a duration and an initial state.
-3. Register the definition in presets/new-scenes.mjs and optional presentation
-   metadata in scene-contract.mjs. Add an assets/<id>.png thumbnail.
-4. Build and verify that geometry, motion and readouts agree.
+- `study-core.mjs`, `study-ui.mjs`, `study-adapters.mjs`: shared materials, chapters, held phases and interactions.
+- `study-catalog.mjs`, `presets/gallery-upgrades.mjs`: nine-object roles, chapters and geometry upgrades.
+- `presets/*-model.mjs`, `presets/mechanisms.mjs`: mechanism poses and readouts.
+- `presets/*-scene.mjs`, `presets/new-scenes.mjs`, `geometry.mjs`: solid geometry and part metadata.
+- `viewer-engine.mjs`, `gallery-app.mjs`: rendering, cameras, picking and pinned inspection.
 
-viewer-engine.mjs handles the common renderer, camera, real-surface picking,
-hover intent, focus visibility and resource disposal. gallery-app.mjs manages
-per-object state and the inspector. geometry.mjs and presets/solid-kit.mjs
-provide the solid builders. Generated preset JSON is a build result, except
-presets/pen.json, which is the original pen definition.
+Edit generators, not generated preset JSON or bundled HTML. `presets/pen-baseline.json` and `qa/baseline-manifest.json` are retained reference inputs.
 
-This is a preset gallery. A scene authoring constructor is a later project.
+## Model limits
 
-## Model scope and verification
+These are representative teaching models with prescribed kinematics, not measured commercial CAD or general contact/force solvers. Optics, electronics and acoustics have explicit simplifications. Inspection counts include integral and repeated features and are not manufacturing bills of materials. See [model inventory](PRESETS.md), [v2 changes and references](GALLERY-V2.md) and [scene contract](SCENE-STANDARD.md).
 
-The objects use representative dimensions and educational kinematics. Force,
-wear, optical rays, combustion, acoustics and electronics are not simulated.
-See PRESETS.md for each mechanism's assumptions and references.
+## Credits
 
-The automated audits cover 1,201 keyboard travel/contact states and 15,141
-new-mechanism poses: finite solids, closed primitives, iris openings,
-slider-crank joints, planetary ratios, pin alignment, watch ratios and pump
-valves. Browser release checks cover all twelve objects, stable pinned
-inspection, Focus/return, separation, pause/resume, touch pinch, reduced
-motion, static fallback, offline loading and shared-context/resource reuse.
-
-## License and credits
-
-MIT for the project source. See LICENSE and THIRD-PARTY.md for retained notices.
-Built with Codex, the Anatomy skill by Ryan, Three.js and Manrope. This is an
-independent project; reference brands are not sponsors or clients.
+Started from [Ryan's Anatomy skill](https://github.com/wheresryan22/anatomy), developed into this gallery by Amir Mushich. Three.js renders the scenes; the UI uses Manrope. MIT code and original notices are included; see [third-party credits](THIRD-PARTY.md). Linked reference documents retain their own rights.

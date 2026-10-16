@@ -1,0 +1,21 @@
+import {CATALOG} from './study-catalog.mjs';
+import {PEN_ROLES} from './presets/pen-scene.mjs';
+import {KEYBOARD_ROLES} from './presets/keyboard-scene.mjs';
+const esc=['switch-Escape','demo-upper','demo-stem','demo-spring','fixed-contact','contact-leaf','spring-post','switch-guide-rails'];
+export const STUDIES={...CATALOG,
+ pen:{roles:PEN_ROLES,scale:'140 × 10.8 mm · 3 mm refill stroke',scope:'Rotary-cam teaching model · contact faces simplified',chapters:[
+ {system:'input',title:'Push without turning.',text:'The button slides in straight guide ribs. Its crown pushes the cam and compresses the return spring.',fact:'Button stroke 4.5 mm · guided against rotation',focus:['plunger-button','plunger-shaft','plunger-tooth-0','rotator-drum'],apart:0,yaw:-1.05,pitch:.48},
+ {system:'index',title:'A slope becomes a turn.',text:'The opposing crown faces start the turn. Sleeve teeth finish one 60° index as the spring lifts the cam.',fact:'Two 30° stages · one 60° index per click',focus:['plunger-tooth-0','cam-crown-face-0','cam-follower-0','sleeve-tooth-0','rotator-drum'],apart:0,yaw:-1.15,pitch:.65},
+ {system:'latch',title:'A ledge remembers the click.',text:'After one click, three followers rest on ledges. After the next, they align with deep slots and return farther.',fact:'Odd click: ledge / tip out · even: deep slot / tip in',focus:['sleeve-guide-0','sleeve-guide-1','sleeve-ledge-0','cam-follower-0','rotator-drum'],apart:0,yaw:-1.15,pitch:.65},
+ {system:'return',title:'The spring pulls everything back.',text:'The front seat is fixed. The refill shoulder compresses the spring; on release it returns the refill until the cam meets its stop.',fact:'The button returns independently of the locked refill.',focus:['return-spring','spring-shoulder','fixed-spring-seat'],apart:0,yaw:-1.15,pitch:.5},
+ {system:'write',title:'The refill carries the ink.',text:'The refill advances 3 mm. Ink feeds the small ball in its socket; the cone supports the tip while the ball rolls on paper.',fact:'0.7 mm ball · 3 mm refill advance',focus:['nib-shank','ball-socket','ball','cone-mouth'],apart:0,yaw:1.2,pitch:.35}
+ ]},
+ keyboard:{roles:KEYBOARD_ROLES,scale:'61 keys · 19.05 mm pitch · 4 mm stroke',scope:'Representative linear switch · elastic and electrical timing simplified',chapters:[
+ {system:'input',title:'A press becomes a straight stroke.',text:'The hollow cap pushes a cross-shaped stem. Housing rails guide its 4 mm stroke; this linear switch has no click detent.',fact:'Escape is the cutaway teaching switch.',focus:['keycap-Escape','demo-stem','switch-Escape'],only:['keycap-Escape',...esc],apart:0,yaw:-2.1,pitch:.6},
+ {system:'return',title:'The spring restores the key.',text:'The lower coil sits in the base. The upper end follows the stem, storing energy as the key moves down.',fact:'The spring compresses; its lower seat stays fixed.',focus:['demo-stem','demo-spring','spring-post'],only:esc,apart:0,yaw:-2.1,pitch:.55},
+ {system:'contact',title:'The circuit closes before bottom-out.',text:'At 2 mm the stem releases the anchored leaf into the fixed contact. Travel continues to 4 mm, then the contacts open on release.',fact:'2 mm actuation · 4 mm full travel',focus:['fixed-contact','contact-leaf'],only:esc,hide:['switch-guide-rails'],apart:0,yaw:-1.55,pitch:.18},
+ {system:'signal',title:'A closed switch becomes a key event.',text:'The controller scans rows and columns. Each switch diode blocks reverse paths; USB carries the detected key event to the computer.',fact:'Trace layout is representative; scan/debounce timing is schematic.',focus:['pcb','traces','diodes','controller','usb-c'],only:['pcb','traces','demo-matrix-path','diodes','controller','usb-c','usb-shell','sockets'],apart:0,yaw:-1.57,pitch:1.22},
+ {system:'guide',title:'A wide key stays level.',text:'Two sliders support the spacebar. A pivoting wire links them so an off-centre press moves both ends together.',fact:'The wire rotates; the two sliders translate together.',focus:['stabilizer-Space','stabilizer-wire-Space','stabilizer-sliders-Space','stem-Space'],only:['stabilizer-Space','stabilizer-wire-Space','stabilizer-sliders-Space','stem-Space','switch-Space','spring-Space'],apart:0,yaw:-1.57,pitch:.55,key:'Space'}
+ ]}
+};
+export const studyFor=id=>STUDIES[id]||null;

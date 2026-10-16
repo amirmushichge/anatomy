@@ -4,14 +4,18 @@
   "type": "module",
   "scripts": {
     "build": "node build.mjs",
-    "audit": "node qa/model-check.mjs && node qa/new-model-check.mjs",
-    "serve": "node serve.mjs"
+    "audit": "node qa/study-check.mjs && node qa/watch-check.mjs && node qa/new-model-check.mjs && node qa/rollout-check.mjs",
+    "serve": "node serve.mjs",
+    "audit:watch": "node qa/watch-check.mjs",
+    "audit:studies": "node qa/study-check.mjs",
+    "audit:gallery": "node qa/rollout-check.mjs",
+    "audit:browser": "node review/verify-studies.mjs && node review/verify-rollout.mjs && node review/gallery-entry-check.mjs && node review/final-entry-check.mjs --verify-only && node review/gallery-hub-check.mjs"
   },
   "dependencies": {
     "esbuild": "0.28.2",
     "three": "0.186.1"
   },
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Interactive cutaway gallery of twelve everyday mechanisms",
   "license": "MIT",
   "author": "Amir Mushich",
@@ -22,5 +26,8 @@
   },
   "engines": {
     "node": ">=22"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
   }
 }

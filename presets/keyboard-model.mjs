@@ -13,4 +13,5 @@ export function keyPose(progress){
   const travel=4*(p<.32?smooth(p/.32):p<.64?1:1-smooth((p-.64)/.36));
   return {travel,contact:travel>=2,stable:p===1,progress:p};
 }
-export function keyboardState(cycles){const state={};for(const [code,p]of Object.entries(cycles)){const s=keyPose(p);state['travel_'+code]=s.travel;state['contact_'+code]=s.contact ? .48 : 0}return state}
+export function contactAdvance(travel){return .48*smooth(Math.min(1,travel/KEYBOARD.actuation))}
+export function keyboardState(cycles){const state={};for(const [code,p]of Object.entries(cycles)){const s=keyPose(p);state['travel_'+code]=s.travel;state['contact_'+code]=contactAdvance(s.travel);state['closed_'+code]=s.contact?1:0;state['wire_'+code]=Math.asin(Math.min(1,s.travel/6))*180/Math.PI}return state}
