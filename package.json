@@ -15,7 +15,7 @@
     "esbuild": "0.28.2",
     "three": "0.186.1"
   },
-  "version": "2.0.0-rc.1",
+  "version": "2.0.0",
   "description": "Interactive cutaway gallery of twelve everyday mechanisms",
   "license": "MIT",
   "author": "Amir Mushich",
@@ -28,6 +28,6 @@
     "node": ">=22"
   },
   "devDependencies": {
-    "playwright": "^1.62.1"
+    "playwright": "1.62.1"
   }
 }

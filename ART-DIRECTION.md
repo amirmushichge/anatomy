@@ -14,4 +14,4 @@ The twelve objects retain the approved drawing language: four white surface tone
 
 The models are explanatory kinematics. Their sources and specific simplifications remain in PRESETS.md, GALLERY-V2.md and WATCH-STANDARD.md. No general collision/contact-force, optical or acoustic solver is claimed.
 
-This is a release candidate. Production replacement and the final GitHub release remain a separate approval step; no social distribution is included.
+Release v2.0.0. The reviewed candidate is approved for the gallery, Lab page and GitHub release. Social distribution is outside this release.

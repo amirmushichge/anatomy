@@ -1,4 +1,4 @@
-# Anatomy v2 release candidate
+# Anatomy v2.0.0
 
 Twelve objects now share white drawing materials, thin outlines, five functional colour families and sixty causal chapters. The watch, pen and keyboard establish the geometry and explanation contract; the other nine carry it across optics, input, transmission, motion, sound, pneumatics and storage.
 

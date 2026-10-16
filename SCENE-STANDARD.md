@@ -1,6 +1,6 @@
 # Anatomy scene foundation · 2.0 preview
 
-All twelve objects now use the drawing-study contract. Watch, rotary-cam pen and mechanical keyboard are the approved reference set; nine upgraded models extend the same foundation. Open index.html or any object HTML offline. The earlier workspaces and public v1.1 are preserved. No constructor UI is included. The release candidate has a preview deployment; production replacement is a separate release step. See GALLERY-V2.md for the nine-object changes and mechanism-specific limitations.
+All twelve objects now use the drawing-study contract. Watch, rotary-cam pen and mechanical keyboard are the approved reference set; nine upgraded models extend the same foundation. Open index.html or any object HTML offline. The earlier study workspaces and v1.1 Git tag retain the reference history. No constructor UI is included. Release v2.0.0 uses this shared scene contract. See GALLERY-V2.md for the nine-object changes and mechanism-specific limitations.
 
 ## Reusable implementation
 
