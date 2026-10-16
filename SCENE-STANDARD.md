@@ -1,6 +1,6 @@
 # Anatomy scene foundation · 2.0 preview
 
-All twelve objects now use the drawing-study contract. Watch, rotary-cam pen and mechanical keyboard are the approved reference set; nine upgraded models extend the same foundation. Open index.html or any object HTML offline. The earlier workspaces and public v1.1 are preserved. No constructor UI or deployment is included. See GALLERY-V2.md for the nine-object changes and mechanism-specific limitations.
+All twelve objects now use the drawing-study contract. Watch, rotary-cam pen and mechanical keyboard are the approved reference set; nine upgraded models extend the same foundation. Open index.html or any object HTML offline. The earlier workspaces and public v1.1 are preserved. No constructor UI is included. The release candidate has a preview deployment; production replacement is a separate release step. See GALLERY-V2.md for the nine-object changes and mechanism-specific limitations.
 
 ## Reusable implementation
 
@@ -58,4 +58,4 @@ Numerical tests cover listed invariants, not exhaustive collision certification,
 
 ## Safe build
 
-This workspace's node_modules is a junction to pinned existing dependencies. Use node build.mjs and npm run audit; do not npm ci against the junction. A fresh independent checkout may install its lockfile normally. Runtime needs no network. Edit generators, not generated JSON/HTML. presets/pen-baseline.json is immutable generator input. Repeated builds must be deterministic.
+Use npm ci in a fresh checkout, then node build.mjs and npm run audit. Browser checks use the pinned Playwright dependency; install Chromium with npx playwright install chromium or set CHROME_PATH. Runtime needs no network. Edit generators, not generated JSON/HTML. presets/pen-baseline.json is immutable generator input. Repeated builds must be deterministic.

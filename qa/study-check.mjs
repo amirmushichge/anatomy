@@ -21,7 +21,7 @@ const sep=(m,p)=>{const [a,b]=m.separateRange||[0,1],t=Math.max(0,Math.min(1,(p-
 for(let i=0;i<=1000;i++){const a=i/1000;for(const d of [pen,keyboard])for(const m of Object.values(d.motions))assert(Number.isFinite(sep(m,a)));if(a>=.48)assert(sep(keyboard.motions['key-KeyA'],a)===1);}
 assert(keyboard.motions['demo-upper'].separateRange[0]<keyboard.motions['demo-stem'].separateRange[0]);assert(keyboard.motions['demo-stem'].separateRange[0]<keyboard.motions.plate.separateRange[0]);assert(pen.motions.cone.separateRange[0]<pen.motions.refill.separateRange[0]);
 checks.push('1001 separation states finite; caps and covers lead internal components');
-// Preserve the watch geometry contract and nine untouched mechanism definitions.
+// Preserve the approved watch parts and full pen/keyboard reference definitions.
 const baseline=JSON.parse(fs.readFileSync(new URL('./baseline-manifest.json',import.meta.url)));assert.equal(definitionHash(watchDefinition().parts),baseline.watchParts);
 for(const [id,hash]of Object.entries(baseline.references))assert.equal(definitionHash(JSON.parse(fs.readFileSync(new URL('../presets/'+id+'.json',import.meta.url)))),hash,id+' baseline drift');
 checks.push('Approved watch parts and pen/keyboard definitions preserved against the reference set');

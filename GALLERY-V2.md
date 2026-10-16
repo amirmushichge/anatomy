@@ -1,6 +1,6 @@
 # Anatomy v2 · local gallery review
 
-All twelve objects use white four-tone solids, thin visible outlines and five labelled functional colour families. The lens was upgraded first; the remaining eight then used the same contract. This is an offline local review build. No deployment or social publication was performed.
+All twelve objects use white four-tone solids, thin visible outlines and five labelled functional colour families. The lens was upgraded first; the remaining eight then used the same contract. This is a release candidate with a Vercel preview. Production replacement and the final GitHub release await review; no social publication is included.
 
 ## Nine-object rollout
 
