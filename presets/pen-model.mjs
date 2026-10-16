@@ -5,11 +5,12 @@ export const smooth = x => {x=clamp(x);return x*x*(3-2*x)};
 export const ramp = (x,a,b) => smooth((x-a)/(b-a));
 export function pose(clicks, progress=1) {
   const p=clamp(progress), active=p<1, old=Math.max(0, clicks-1), from=old%2?DIM.travel:0, target=clicks%2?DIM.travel:0;
-  if (!active) return { clicks, angle:clicks*DIM.notch, refill:target, plunger:target, phase:clicks%2?'Locked on ledge':'Resting in deep slot', tip:clicks%2?'Tip out':'Tip retracted', stable:true, progress:1 };
+  if (!active) return { clicks, angle:clicks*DIM.notch, refill:target, plunger:0, phase:clicks%2?'Locked on ledge':'Resting in deep slot', tip:clicks%2?'Tip out':'Tip retracted', stable:true, progress:1 };
   const push=ramp(p,0,.32), turnA=ramp(p,.26,.5), turnB=ramp(p,.53,.72), release=ramp(p,.72,1);
-  const travel=from+(DIM.push-from)*push-(DIM.push-target)*release;
+  const driven=Math.max(from,DIM.push*push),travel=driven-(DIM.push-target)*release;
   const angle=old*DIM.notch+30*turnA+30*turnB;
-  const plunger=travel;
+  // The actuator has no retaining ledge: it returns even while the refill stays out.
+  const plunger=DIM.push*push*(1-release);
   const phase=p<.26?'Plunger pushes cam':p<.53?'Crown faces start the turn':p<.72?'Sleeve teeth finish the index':clicks%2?'Spring seats cam on ledge':'Spring returns cam into slot';
   return {clicks, angle, refill:travel, plunger, phase, tip:138.85+travel>140?'Tip out · moving':'Tip inside · moving', stable:false, progress:p};
 }

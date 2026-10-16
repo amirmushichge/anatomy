@@ -1,0 +1,31 @@
+{
+  "source": "Approved Anatomy-Scene-Studies reference set before the nine-object rollout",
+  "captured": "2026-10-16",
+  "watchParts": "c084b42b99fb41c141849c773859c94a835cf3a59b60144ea5b4bf91f599d182",
+  "references": {
+    "pen": "7294aad3aea261ac22a9e6309d90bbde77bacf47cff3839ed03d2915ad16d966",
+    "keyboard": "9df04cb151e2f7edb47f19bd51aa04495477b297aef66e99a97714862d47e9f6"
+  },
+  "previousGeometry": {
+    "lens": "14f6a5912a6f311cc4fb4325784d5eb8584477b4f4c606d58e922e3376260c91",
+    "gamepad": "b4af3529b9593ff08364828d3882872f2745d7936fb6d663ccf637797219780e",
+    "lock": "ca3a4c9e0d8a66e39c4cdf2eee8e2341e5a1205c7711f18458fac5c0ca5641db",
+    "hub": "70c867935daf35d2cc74c1d4b4418a5765700bcd2b1b81a76c22a4567ec1774d",
+    "engine": "65989e1dd4a1ad7768e537e186177220581f5b4c8b22ef7b5c1f77dfa87b4424",
+    "motor": "466fde32a8a7fd7f9dafdf76ca8db85ba635c86ed823e05af789472c6b7e6e24",
+    "speaker": "5dcc0cdadf0884e9b917c0afc0fd4f72c6dd53a2bc9b32bb73373dd1303d80cc",
+    "pump": "4a9954ef8128bd2c4292cd2d2cb9050029803ca9bde34ca65121146865593f94",
+    "hdd": "046d2b239f3092064cd8ecd5688eb0586f05247cc72d0f88dfa4ae2870e10ba9"
+  },
+  "previousScenes": {
+    "lens": "a5aa59b797909be5789e624b87ccd100cfd71b78e208892f40fd10c15f015d36",
+    "gamepad": "873617919ef812bf178fa047377e596e90705b65853c937713c9aee161968174",
+    "lock": "470c6c97f6bf374048492c003608f0f6fba3a9e3c230aabd9f16e1ee9253dba7",
+    "hub": "42f8417df04bfe3472e93c9a5b869a55ff8859e69d83935bd7d391ad54c14e43",
+    "engine": "c0a5a229a3d38efba39ea12b210e5015fe736ec3c1da8b00cd6a707098b06b9f",
+    "motor": "b6fe564349b5cc9f59c511b0b1477850a519820f6242c348cfcf2c6a53628ddf",
+    "speaker": "3fd67fe1f9cdae161c77846e10bb6f11c33d1625ab0a273bf74a0d6e45e6674a",
+    "pump": "7fef5e0a4578466e86c51d2963a6ccb1461c28124186a50d4b31c6ae2e4550bf",
+    "hdd": "a20ef222a830aeb4ffbbb76c32f8f57d713923f6483584f0fdac8f1c59935320"
+  }
+}

@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import {toCreasedNormals} from 'three/addons/utils/BufferGeometryUtils.js';
+import {toCreasedNormals,mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 
 const V=p=>new THREE.Vector3(...p);
 const point=(f,s,u,v)=>f.o.map((o,i)=>o+s*f.a[i]+u*f.u[i]+v*f.v[i]);
@@ -35,6 +35,13 @@ function facesOf(s) {
 // Neighbouring kit chunks share internal faces. Remove those before meshing;
 // the result is an opaque solid, rather than a stack of outlined facets.
 export function geometryFor(shapes) {
+  if(shapes.length>1&&shapes.some(s=>s.kind==='plate'||s.kind==='ball')){const gs=shapes.map(s=>{let g=geometryFor([s]);if(g.index)g=g.toNonIndexed();g.deleteAttribute('uv');return g});const out=mergeGeometries(gs);gs.forEach(g=>g.dispose());out.computeBoundingBox();out.computeBoundingSphere();return out;}
+  if(shapes.length===1&&shapes[0].kind==='plate'){
+    const s=shapes[0],outline=new THREE.Shape(s.contour.map(p=>new THREE.Vector2(...p)));
+    for(const points of s.holes||[]){const hole=new THREE.Path(points.map(p=>new THREE.Vector2(...p)));outline.holes.push(hole)}
+    const b=s.bevel||0,g=new THREE.ExtrudeGeometry(outline,{depth:Math.max(.008,s.h-2*b),steps:1,bevelEnabled:b>0,bevelThickness:b,bevelSize:b,bevelSegments:2,curveSegments:12});
+    g.translate(0,0,s.z+b);if(s.F){const m=new THREE.Matrix4().makeBasis(V(s.F.u),V(s.F.v),V(s.F.a));m.setPosition(V(s.F.o));g.applyMatrix4(m)}else if(s.orientation==='x'){g.rotateY(Math.PI/2);g.translate(...s.offset)}g.computeBoundingBox();g.computeBoundingSphere();return g;
+  }
   if(shapes.length===1&&shapes[0].kind==='ball') {
     const s=shapes[0],g=new THREE.SphereGeometry(s.r,32,16);g.translate(...s.at);return g;
   }

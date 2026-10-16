@@ -1,3 +1,6 @@
+// Base constructions are retained for provenance. newPresets() applies gallery-upgrades; it is the canonical scene registry.
+import {upgradeDefinition} from './gallery-upgrades.mjs';
+import {watchDefinition} from './watch-scene.mjs';
 import {make,C,Z,X,Y,box,disc,ring,sector,ball,beam,polyTube,gear,spiral,torus,prism,deg,TAU} from './solid-kit.mjs';
 
 export function lensDefinition(){
@@ -200,35 +203,4 @@ export function gamepadDefinition(){
  assembly('stick','Analog stick','stick-cap-0');assembly('gimbal','Gimbal sensors','gimbal');assembly('trigger','Trigger','trigger-1');assembly('buttons','Buttons','button-3');assembly('vibration','Vibration motors','eccentric-0');assembly('pcb','Circuit board','pcb');assembly('shell','Shell','lower-shell');return k;
 }
 
-export function watchDefinition(){
- const k=make('watch','Mechanical watch','Hand-wound · Lever escapement',{yaw:-1.25,pitch:.85}),{add,motion,assembly,screw}=k;
- motion('case',[0,0,-18]);motion('dial',[0,0,25]);motion('bridge',[0,0,15]);motion('barrel',[0,0,7],{pivot:[-4.32,0,0],rotateField:'barrel',rotateAxis:[0,0,1]});
- add('case','case','Watch case cutaway','Holds the movement and protects it from dust and moisture.',[ring(Z(),-2,8,20,17.5,0,275)],C.steel);
- add('mainplate','case','Mainplate cutaway','Locates the wheel pivots and supports the escapement.',[ring(Z(),0,1.2,17,3,0,290)],C.shell);
- add('barrel','barrel','Mainspring barrel cutaway','Contains the wound spring that supplies energy to the gear train.',[ring(Z(-4.32,0),1.4,4.8,3.7,3.4,0,285),disc(Z(-4.32,0),1.2,1.4,3.7)],C.steel);
- add('mainspring','barrel','Mainspring','A coiled steel strip stores winding energy and applies torque to the barrel.',spiral(Z(-4.32,0),2,1.2,4,.7,3.2,.1),C.dark,{outline:false});
- add('barrel-gear','barrel','Barrel wheel','Transmits mainspring torque to the centre wheel pinion.',gear(Z(-4.32,0),2,.5,64,.12),C.copper);
- // Compact representative train. Compound pinions carry the numerical ratios;
- // spatial layout is illustrative rather than a manufacturer movement plan.
- const wheels=[['center',0,0,60,.12,3.2,8,2],['third',3.6,1.92,64,.12,4.4,8,3.2],['fourth',7.2,-.468,80,.12,5.6,8,4.4],['escape',5,-5.071,15,.24,3.2,5,5.6]];
- for(const [id,x,y,n,m,z,pn,pz]of wheels){motion(id,[0,0,8+z*2],{pivot:[x,y,0],rotateField:id,rotateAxis:[0,0,1]});add(id+'-wheel',id,id==='escape'?'Escape wheel':'Train wheel · '+id,id==='escape'?'Alternately locks against the pallet jewels and releases one step per beat.':'A compound wheel and pinion reduce the barrel torque through the movement.',gear(Z(x,y),z,.45,n,m),C.copper);add(id+'-pinion',id,'Train pinion · '+id,'Shares the wheel arbor and meshes with the preceding train wheel.',gear(Z(x,y),pz,.45,pn,.12),C.steel);add(id+'-arbor',id,'Wheel arbor · '+id,'Carries the compound wheel between two jewelled bearings.',[disc(Z(x,y),.2,7.5,.35)],C.steel);for(let side=0;side<2;side++)add(id+'-jewel-'+side,side?'bridge':'case','Pivot jewel · '+id,'A hard, low-friction bearing supports the rotating arbor.',[ring(Z(x,y),side?7:1.2,side?7.5:1.6,.9,.38)],C.copper);add(id+'-bridge','bridge','Wheel bridge · '+id,'Captures the upper jewel and fixes its height over the mainplate.',[box(x-1.4,y-1.4,7.5,2.8,2.8,.5,.5),beam([x,y,7.8],[x-3,y+3,7.8],.55)],C.steel)}
- motion('balance',[0,0,18],{pivot:[-5,-9,0],rotateField:'balance',rotateAxis:[0,0,1]});motion('pallet',[0,0,14],{pivot:[0,-9,0],rotateField:'pallet',rotateAxis:[0,0,1]});
- add('balance','balance','Balance wheel','Oscillates as the hairspring supplies restoring torque; beats are shown in slow time.',[ring(Z(-5,-9),3.5,4.2,4.7,4.2),beam([-9.2,-9,3.8],[-.8,-9,3.8],.3),beam([-5,-13.2,3.8],[-5,-4.8,3.8],.3)],C.copper,{action:'press'});
- add('balance-staff','balance','Balance staff','Carries the oscillating balance through its upper and lower bearings.',[disc(Z(-5,-9),1,7,.3)],C.steel);
- add('hairspring','case','Balance hairspring','Its inner end follows the balance while the outer end stays fixed, supplying restoring torque.',spiral(Z(-5,-9),4.6,.12,3.6,.7,3.8,.08),C.dark,{outline:false,twist:{field:'balance',center:[-5,-9],inner:.7,outer:3.8}});
- add('spring-stud','bridge','Hairspring stud','Anchors the outer spring end to the stationary balance bridge.',[disc(Z(-1.2,-9),4.5,6,.35)],C.steel);
- add('impulse-jewel','balance','Impulse jewel','Couples the balance roller to the pallet fork.',[disc(Z(-4.3,-9),2.7,3.5,.2)],C.copper);
- add('pallet-fork','pallet','Pallet fork','Alternates between two locks, receiving impulses from the escape wheel.',[beam([-1.5,-9,3],[1.8,-9,3],.3),beam([-1.5,-9,3],[-2.5,-8.3,3],.25),beam([-1.5,-9,3],[-2.5,-9.7,3],.25)],C.steel);
- for(let i=0;i<2;i++)add('pallet-jewel-'+i,'pallet',i?'Exit pallet jewel':'Entry pallet jewel','Locks an escape-wheel tooth between successive balance beats.',[box(1.1,i?-10.3:-8.1,2.8,.6,.6,.5)],C.copper);
- add('balance-bridge','bridge','Balance bridge','Supports the upper balance bearing and the spring anchor.',[beam([-5,-9,7],[-11,-4,7],.7),ring(Z(-5,-9),6.7,7.3,1.1,.35)],C.steel);
- add('dial-ring','dial','Dial cutaway','A partial dial exposes the movement while retaining the hour markers.',[ring(Z(),9,9.5,17,14,0,300)],C.bright);
- for(let i=0;i<12;i++)add('hour-marker-'+i,'dial','Hour index '+(i+1),'Marks the twelve hour positions around the dial.',[beam([15*Math.sin(deg(i*30)),15*Math.cos(deg(i*30)),9.7],[16.5*Math.sin(deg(i*30)),16.5*Math.cos(deg(i*30)),9.7],.18)],C.dark);
- for(const [id,r,z]of [['seconds',14,10.7],['minutes',11,10.4],['hours',7.5,10.1]]){motion(id,[0,0,30+z],{rotateField:id,rotateAxis:[0,0,-1]});add(id+'-hand',id,id[0].toUpperCase()+id.slice(1)+' hand','The motion works reduce the minute-hand rotation by 12:1 for the hour hand.',[beam([0,-1.5,z],[0,r,z],id==='seconds'?.12:.26),disc(Z(),z-.1,z+.1,.7)],C.dark)}
- add('crown','case','Winding crown','The manual winding input tensions the mainspring; stored energy is represented rather than simulated.',[disc(X(18,0,4),0,5,2.8),disc(X(15,0,4),0,4,.6)],C.steel);
- add('ratchet','barrel','Winding ratchet','Holds the winding arbor against the spring torque.',gear(Z(-4.32,0),5.6,.4,18,.25),C.steel);
- add('click','case','Ratchet click','Prevents the winding ratchet from unwinding backwards.',[beam([-12,6,6],[-10,5,6],.3)],C.dark);
- for(let i=0;i<5;i++)screw('bridge-screw-'+i,'bridge',13*Math.cos(deg(i*65)),13*Math.sin(deg(i*65)),5,.65,3);
- assembly('balance','Balance & spring','balance');assembly('pallet','Pallet fork','pallet-fork');assembly('escape','Escape wheel','escape-wheel');assembly('barrel','Mainspring','mainspring');assembly('train','Gear train','third-wheel');assembly('hands','Hands','minutes-hand');assembly('case','Case','case');return k;
-}
-
-export const newPresets=()=>[lensDefinition(),watchDefinition(),gamepadDefinition(),lockDefinition(),hubDefinition(),engineDefinition(),motorDefinition(),speakerDefinition(),pumpDefinition(),hddDefinition()].map(({id,title,detail,definition})=>({id,title,detail,definition}));
+export const newPresets=()=>[lensDefinition(),watchDefinition(),gamepadDefinition(),lockDefinition(),hubDefinition(),engineDefinition(),motorDefinition(),speakerDefinition(),pumpDefinition(),hddDefinition()].map(upgradeDefinition).map(({id,title,detail,definition})=>({id,title,detail,definition}));
